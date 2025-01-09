@@ -21,9 +21,12 @@ func CountInFile(cb Chessboard, file string) int {
 // CountInRank returns how many squares are occupied in the chessboard,
 // within the given rank.
 func CountInRank(cb Chessboard, rank int) int {
+    if rank <= 0 || rank >= 9 {
+        return 0
+    }
     counter := 0
 	for _, value := range cb {
-        if value[rank] {
+        if value[rank - 1] {
             counter++;
         }
     }
@@ -32,10 +35,24 @@ func CountInRank(cb Chessboard, rank int) int {
 
 // CountAll should count how many squares are present in the chessboard.
 func CountAll(cb Chessboard) int {
-	panic("Please implement CountAll()")
+	counter := 0
+    for key := range cb {
+        for range cb[key] {
+            counter++
+        }
+    }
+	return counter
 }
 
 // CountOccupied returns how many squares are occupied in the chessboard.
 func CountOccupied(cb Chessboard) int {
-	panic("Please implement CountOccupied()")
+	counter := 0
+    for key := range cb {
+        for _, value := range cb[key] {
+            if value {
+                counter++
+            }
+        }
+    }
+	return counter
 }
